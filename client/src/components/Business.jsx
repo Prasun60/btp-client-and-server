@@ -34,10 +34,7 @@ const Business = () => {
           a huge impact.
         </h2>
         <p className={`${styles.paragraph} max-w-[470px] mt-5 text-[#ededed] `}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          Whether it's donating a few dollars to a cause you care about, volunteering your time to help those in need, or simply spreading positivity and support, every action matters. Join us in celebrating the power of collective goodness and discover how together, we can create a ripple effect of positive change that reaches far beyond our wildest imaginations. Embrace your inner hero, and let's embark on this transformative journey to make the world a better place for all.
         </p>
 
         <Button styles="mt-10" />

@@ -36,10 +36,7 @@ const Hero = () => {
           Life . . .
         </h1>
         <p className={`${styles.paragraph} max-w-[470px] mt-5 text-white`}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+        Join our community of like-minded individuals dedicated to creating meaningful change, as we embark on a journey together to inspire, uplift, and empower those around us. Together, we can unlock the true potential of humanity and become the heroes that shape a brighter, more compassionate future for all. Embrace your unique abilities, discover your passions, and let's embark on this incredible adventure of making the world a better place, one courageous step at a time. Are you ready to be the hero this world needs?
         </p>
       </div>
 

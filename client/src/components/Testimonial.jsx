@@ -19,8 +19,7 @@ const Testimonial = () => {
           <p
             className={`${styles.paragraph} text-left max-w-[450px] text-gradient`}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            "Joining this community was one of the best decisions I've ever made. The encouragement and inspiration from fellow members have motivated me to take action and make a difference in the world. I've learned that even the smallest acts of kindness can create a huge impact. Thank you for empowering me to be the hero I never knew I could be!" - Sandip.
           </p>
         </div>
       </div>

@@ -37,6 +37,10 @@ import people01 from "./people01.png";
 import people02 from "./people02.png";
 import people03 from "./people03.png";
 
+import rotaract from "./rotaract_blue.png"
+import middday from "./cutted_midday.jpg"
+import prasun from "./prasun.jpg"
+import aleesha from "./aleesha.jpg"
 export {
   airbnb,
   bill,
@@ -75,4 +79,8 @@ export {
   money,
   loader,
   thirdweb,
+  rotaract,
+  middday,
+  prasun,
+  aleesha
 };
