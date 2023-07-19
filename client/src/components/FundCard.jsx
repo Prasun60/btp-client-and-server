@@ -1,6 +1,7 @@
 import React from "react";
 import { tagType, thirdweb } from "../assets";
 import { daysLeft } from "../utils";
+import {rotaract} from "../assets"
 
 const FundCard = ({
   name,
@@ -30,12 +31,12 @@ const FundCard = ({
       <div className="flex flex-col p-4">
         <div className="flex flex-row items-center mb-[18px]">
           <img
-            src={tagType}
+            src={rotaract}
             alt="tag"
             className="w-[17px] h-[17px] object-contain"
           />
           <p className="ml-[12px] mt-[2px] font-epilogue font-medium text-[12px] text-[#808191]">
-            Education
+            RotoFund
           </p>
         </div>
 

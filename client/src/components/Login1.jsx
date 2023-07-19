@@ -82,6 +82,7 @@ const Login1 = () => {
           email: email,
           password: pass,
         }
+        // config
       );
       setIsLoading(false);
       console.log(response);
@@ -96,12 +97,13 @@ const Login1 = () => {
   };
 
   return (
-    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
+    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden"  style={{"display":"flex","height":"600px"}}>
    
       {isLoading && <Loader name="Loggin in"/>}
       <motion.dev
         variants={slideIn("left", "tween", 0.2, 1)}
         className="flex-[0.75] bg-black-100 p-8 rounded-2xl "
+        style={{ "width": "40%" }}
       >
         {/* <p className={styles.sectionSubText}></p> */}
         <h3 className={styles.sectionHeadText}>Login</h3>
@@ -146,6 +148,11 @@ const Login1 = () => {
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
         className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px] "
+        style={{ "width": "50%" ,
+        // "float":"right",
+        "position":"absolute",
+        "right":"0",        
+      }}
       >
         <EarthCanvas />
       </motion.div>

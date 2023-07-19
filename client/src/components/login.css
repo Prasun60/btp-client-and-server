@@ -1,0 +1,11 @@
+@media (max-width: 767px) {
+    .xl:flex-row {
+      flex-direction: column;
+    }
+
+    .xl:flex-1 {
+      position: relative; /* Reset position */
+      right: auto; /* Reset right position */
+      width: 100%; /* Take full width */
+    }
+  }
