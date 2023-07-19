@@ -2,6 +2,7 @@
 import styles from "../style";
 import { discount, robot } from "../assets";
 import GetStarted from "./GetStarted";
+import {rotohero} from "../assets"
 
 const Hero = () => {
   return (
@@ -44,9 +45,10 @@ const Hero = () => {
         className={`flex-1 flex justify-center items-center md:my-0 my-10 relative`}
       >
         <img
-          src={robot}
+          src={rotohero}
           alt="hero-image"
           className="w-[100%] h-[100%] relative z-[5] "
+          style={{"borderRadius":"67% 33% 76% 24% / 41% 59% 41% 59%  ","height":"600px","marginRight":"50px"}}
         />
         <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient " />
         <div className="absolute z-[1] w-[80%] h-[80%] rounded-full bottom-40 white__gradient " />

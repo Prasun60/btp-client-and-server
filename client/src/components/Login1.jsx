@@ -82,7 +82,6 @@ const Login1 = () => {
           email: email,
           password: pass,
         }
-        // config
       );
       setIsLoading(false);
       console.log(response);
@@ -98,6 +97,7 @@ const Login1 = () => {
 
   return (
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
+   
       {isLoading && <Loader name="Loggin in"/>}
       <motion.dev
         variants={slideIn("left", "tween", 0.2, 1)}

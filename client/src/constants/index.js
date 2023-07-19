@@ -20,6 +20,7 @@ import {
   shield,
   prasun,
   aleesha,
+  sairohan,
   star,
 } from "../assets";
 
@@ -88,7 +89,7 @@ export const feedback = [
       "In the depths of our souls, we carry the seeds of greatness, waiting to bloom and paint the world with colors of courage, kindness, and boundless possibility. United by purpose, we nurture each other's dreams, breathing life into the symphony of our collective triumphs.",
     name: "Sai Rohan",
     title: "Founder & Leader",
-    img: people03,
+    img: sairohan,
   },
 ];
 

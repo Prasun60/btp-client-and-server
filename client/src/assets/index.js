@@ -41,6 +41,8 @@ import rotaract from "./rotaract_blue.png"
 import middday from "./cutted_midday.jpg"
 import prasun from "./prasun.jpg"
 import aleesha from "./aleesha.jpg"
+import rotohero from "./rotohero.jpg"
+import sairohan from "./sairohan.jpg"
 export {
   airbnb,
   bill,
@@ -82,5 +84,7 @@ export {
   rotaract,
   middday,
   prasun,
-  aleesha
+  aleesha,
+  rotohero,
+  sairohan,
 };
