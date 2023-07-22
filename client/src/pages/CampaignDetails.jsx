@@ -5,7 +5,9 @@ import { useStateContext } from "../context";
 import { CustomButton, CountBox, Loader } from "../components";
 import { calculateBarPercentage, daysLeft } from "../utils";
 import { thirdweb } from "../assets";
-import { c } from "maath/dist/index-43782085.esm";
+// import { c } from "maath/dist/index-43782085.esm";
+import { MediaRenderer } from "@thirdweb-dev/react";
+
 
 const CampaignDetails = () => {
   const { state } = useLocation();
@@ -42,11 +44,8 @@ const CampaignDetails = () => {
       {isLoading && <Loader />}
       <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
         <div className="flex-1 flex-col">
-          <img
-            src={state.state.image}
-            alt="campaign"
-            className="w-full h-[410px] object-cover rounded-xl"
-          />
+          {/* <img src={state.state.image} alt="campaign" /> */}
+          <MediaRenderer key={state.state.image} src={state.state.image} type="image"  className="w-full h-[410px] object-cover rounded-xl" />
           <div className="relative w-full h-[5px] bg-[#3a3a43] mt-2">
             <div
               className="absolute h-full bg-[#4acd8d]"
@@ -122,7 +121,8 @@ const CampaignDetails = () => {
                     className="flex justify-between items-center gap-4"
                   >
                     <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-11">
-                      {index + 1}. name : {item.name}, wallet address:  {item.donator}
+                      {index + 1}. name : {item.name}, wallet address:{" "}
+                      {item.donator}
                     </p>
                     <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-11">
                       {item.donation}
