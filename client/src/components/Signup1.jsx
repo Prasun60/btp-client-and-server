@@ -7,6 +7,7 @@ import { slideIn } from "../utils/motion";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import  Loader  from "./Loader";
+import {rotaract} from "../assets"
 
 const Signup1 = () => {
   const [name, setName] = useState("");
@@ -38,16 +39,33 @@ const Signup1 = () => {
   };
 
   return (
-    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
-      {isLoading && <Loader name="Signing up"/>}
-      <motion.dev
-        variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl "
-      >
+    <div>
+    <nav className="p-4 text-white" style={{"width":"100%","marginTop":"-100px","marginBottom":"400px","position":"absolute", "marginLeft":"-230px"}}>
+      <div className="container mx-auto">
+        <Link to="/" className="text-white font-bold text-xl" style={{"width":"50%","float":"left","height":"500px","width":"100px"}}>
+        <img
+          src={rotaract}
+          alt="tag"
+          className="w-[50px] h-[70px] object-contain"
+          style={{"height":"100px","width":"100px"}}
+        />
+        </Link>
+        {/* You can add other navbar links here */}
+      </div>
+      
+    </nav>
+  <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden parent"  style={{"display":"flex","height":"600px"}}>
+ 
+    {isLoading && <Loader name="Signing up"/>}
+    <motion.dev
+      variants={slideIn("left", "tween", 0.2, 1)}
+      className="flex-[0.75] bg-black-100 p-8 rounded-2xl form"
+      style={{ "width": "40%","marginTop":"500px" }}
+    >
         {/* <p className={styles.sectionSubText}></p> */}
         <h3 className={styles.sectionHeadText}>Sign Up</h3>
 
-        <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
+        <form onSubmit={handleSubmit} className=" flex flex-col gap-6" >
           <label className="flex flex-col">
             <sapn className="text-white font-medium mb-4">Name</sapn>
             <input
@@ -91,14 +109,20 @@ const Signup1 = () => {
             <Link to="/login">Already, have an account Login instead</Link>
           </button>
         </form>
-      </motion.dev>
+        </motion.dev>
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px] "
+        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px] earth"
+        style={{ "width": "50%" ,
+        // "float":"right",
+        "position":"absolute",
+        "right":"0",   
+            
+      }}
       >
         <EarthCanvas />
       </motion.div>
-    </div>
+    </div></div>
   );
 };
 

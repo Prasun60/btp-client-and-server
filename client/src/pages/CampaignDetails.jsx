@@ -5,12 +5,17 @@ import { useStateContext } from "../context";
 import { CustomButton, CountBox, Loader } from "../components";
 import { calculateBarPercentage, daysLeft } from "../utils";
 import { thirdweb } from "../assets";
+import { useParams } from "react-router-dom";
 // import { c } from "maath/dist/index-43782085.esm";
 import { MediaRenderer } from "@thirdweb-dev/react";
+import swal from "sweetalert2";
 
 
 const CampaignDetails = () => {
   const { state } = useLocation();
+  const { id } = useParams();
+
+  console.log(id)
   const history = useHistory();
   const { donate, getDonations, contract, address } = useStateContext();
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +42,13 @@ const CampaignDetails = () => {
     await donate(state.state.pId, amount);
     history.push("/home");
     setIsLoading(false);
+    swal.fire({
+      title: "Success",
+      text: "Donation Successful",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+
   };
 
   return (
@@ -61,7 +73,7 @@ const CampaignDetails = () => {
         </div>
 
         <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
-          <CountBox title="Days Left" value={remainingDays} />
+          <CountBox title="Days Left" value={parseInt(remainingDays)+1} />
           <CountBox
             title={`Raised of ${state.state.target}`}
             value={state.state.amountCollected}
