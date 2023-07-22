@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { ethers } from "ethers";
 import { money } from "../assets";
 import { CustomButton, FormField, Loader } from "../components";
-import { checkIfImage } from "../utils";
+// import { checkIfImage } from "../utils";
 import { useStateContext } from "../context";
 import { useStorageUpload } from "@thirdweb-dev/react";
 import { useDropzone } from "react-dropzone";

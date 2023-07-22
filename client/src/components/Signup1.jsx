@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { EarthCanvas } from "./canvas";
@@ -8,6 +8,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import  Loader  from "./Loader";
 import {rotaract} from "../assets"
+import { useStorageUpload } from "@thirdweb-dev/react";
+import { useDropzone } from "react-dropzone";
+import swal from 'sweetalert2';
+
+
+
 
 const Signup1 = () => {
   const [name, setName] = useState("");
@@ -15,6 +21,31 @@ const Signup1 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const { mutateAsync: upload } = useStorageUpload();
+  const [image, setImage] = useState(null);
+
+  const onDrop = useCallback(
+    async (acceptedFiles) => {
+      setIsLoading(true);
+      const uris = await upload({ data: acceptedFiles });
+      setIsLoading(false);
+      swal.fire
+      ({  
+        title: 'Image Uploaded Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#1dc071',
+      })
+      console.log(uris);
+      // setForm((prevForm) => ({ ...prevForm, image: uris }));
+      setImage(uris[0])
+      console.log(image)
+    },
+    [upload]
+  );
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  // const [uris, setUris] = useState([]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,11 +54,12 @@ const Signup1 = () => {
       console.log("signup");
       setIsLoading(true);
       const response = await axios.post(
-        "https://btp-server.onrender.com/signup",
+        "http://localhost:5000/signup",
         {
           name,
           email,
           password,
+          image
         }
       );
       setIsLoading(false);
@@ -65,7 +97,7 @@ const Signup1 = () => {
         {/* <p className={styles.sectionSubText}></p> */}
         <h3 className={styles.sectionHeadText}>Sign Up</h3>
 
-        <form onSubmit={handleSubmit} className=" flex flex-col gap-6" >
+        <form onSubmit={handleSubmit} className=" flex flex-col gap-2" >
           <label className="flex flex-col">
             <sapn className="text-white font-medium mb-4">Name</sapn>
             <input
@@ -96,6 +128,14 @@ const Signup1 = () => {
               className="bg-tertiary1 py-4 px-6 placeholder:text-secondary1 text-white rounded-lg outlined-none border-none font-medium"
             />
           </label>
+          <div {...getRootProps()}
+            type="submit"
+            className="bg-tertiary1 py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary1 rounded-xl mt-3"
+          >
+            <input {...getInputProps()}  
+         />
+           Choose Profile Picture
+          </div>
           <button
             type="submit"
             className="bg-tertiary1 py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary1 rounded-xl"

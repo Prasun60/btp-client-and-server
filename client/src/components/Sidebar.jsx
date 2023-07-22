@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { logo } from "../assets";
 import { navlinks } from "../constants";
 import { Context } from "../context/Context";
+import { rotaract } from "../assets";
 
 const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
   <div
@@ -33,7 +34,7 @@ const Sidebar = () => {
   return (
     <div className="flex justify-between items-center flex-col sticky top-5 h-[93vh]">
       <Link to="/home">
-        <Icon styles="w-[52px] h-[52px] bg-[#2c2f32]" imgUrl={logo} />
+        <Icon styles="w-16 h-16 bg-[#2c2f32]" imgUrl={rotaract} />
       </Link>
 
       <div className="flex-1 flexflex-col justify-between items-center bg-[#1c1c24] rounded-[20px] w-[76px] py-4 mt-12">

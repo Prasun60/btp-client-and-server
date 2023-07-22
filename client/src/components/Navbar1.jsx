@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { CustomButton } from "./";
 import { logo, menu, search, thirdweb } from "../assets";
 import { navlinks } from "../constants";
 import { useStateContext } from "../context";
+import { MediaRenderer } from "@thirdweb-dev/react";
+import { Context } from "../context/Context";
 
 const Navbar1 = () => {
   const history = useHistory();
   const [isActive, setIsActive] = useState("dashboard");
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const { connect, address } = useStateContext();
+  const { user } = useContext(Context);
+  console.log(user.user.name)
 
   return (
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
@@ -38,13 +42,9 @@ const Navbar1 = () => {
           }}
         />
         <Link to="/profile">
-          <div className="w-[52px] h-[52px] rounded-full bg-[#2c2f32] flex justify-center items-center cursor-pointer">
-            <img
-              src={thirdweb}
-              alt="user"
-              className="w-[60%] h-[60%] object-contain"
-            />
-          </div>
+          
+        <MediaRenderer key={user.user.image} src={user.user.image} type="image" style={{"height":"50px", "width":"50px","borderRadius":"100%"}} />
+          
         </Link>
       </div>
 
