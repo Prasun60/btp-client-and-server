@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { ethers } from "ethers";
 import { money } from "../assets";
 import { CustomButton, FormField, Loader } from "../components";
 import { checkIfImage } from "../utils";
 import { useStateContext } from "../context";
+import { useStorageUpload } from "@thirdweb-dev/react";
+import { useDropzone } from "react-dropzone";
+import swal from 'sweetalert2';
 
 const CreateCampaign = () => {
   const history = useHistory();
+  const { mutateAsync: upload } = useStorageUpload();
+  const [uris, setUris] = useState([]);
+
+  
   const [isLoading, setIsLoading] = useState(false);
   const { createCampaign } = useStateContext();
   const [form, setForm] = useState({
@@ -18,30 +25,67 @@ const CreateCampaign = () => {
     deadline: "",
     image: "",
   });
-
+  
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
+  
+  const onDrop = useCallback(
+    async (acceptedFiles) => {
+      setIsLoading(true);
+      const uris = await upload({ data: acceptedFiles });
+      setIsLoading(false);
+      swal.fire
+      ({  
+        title: 'Image Uploaded Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#1dc071',
+      })
+      console.log(uris);
+      setForm((prevForm) => ({ ...prevForm, image: uris }));
+      // setUris(uris);
+    },
+    [upload]
+  );
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log( "deadline"+new Date(form.deadline).getTime())
-    console.log(form)
+    console.log(form);
 
-    checkIfImage(form.image, async (exists) => {
-      if (exists) {
-        setIsLoading(true);
-        await createCampaign({
-          ...form,
-          target: ethers.utils.parseUnits(form.target, 18),
-        });
-        setIsLoading(false);
-        history.push("/home");
-      } else {
-        alert("Provide valid image Url");
-        setForm({ ...form, image: "" });
-      }
+    // const uploadData = () => {
+    //   // Get any data that you want to upload
+    //   const dataToUpload = [...];
+
+    //   // And upload the data with the upload function
+    //   const uris = await upload({ data: dataToUpload });
+    // }
+
+    setIsLoading(true);
+    await createCampaign({
+      ...form,
+      target: ethers.utils.parseUnits(form.target, 18),
     });
+    setIsLoading(false);
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    history.push("/home");
+
+    // checkIfImage(form.image, async (exists) => {
+    //   if (exists) {
+    //     setIsLoading(true);
+    //     await createCampaign({
+    //       ...form,
+    //       target: ethers.utils.parseUnits(form.target, 18),
+    //     });
+    //     setIsLoading(false);
+    //     history.push("/home");
+    //   } else {
+    //     alert("Provide valid image Url");
+    //     setForm({ ...form, image: "" });
+    //   }
+    // });
 
     // console.log(form);
   };
@@ -111,19 +155,30 @@ const CreateCampaign = () => {
           />
         </div>
 
-        <FormField
+        {/* <FormField
           labelName="Campaign image*"
           placeholder="Place image URL of your campaign"
           inputType="url"
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
-        />
+        /> */}
+        <div {...getRootProps()}>
+          
+          <div
+            className={`font-epilogue font-semibold text-[16px] leading-[26px] text-white  text-center min-h-[52px]  rounded-[10px] bg-[#a883ff] w-24`}
+            // styles={{"width":"700px"}}
+            // handleChange={(e) => handleFormFieldChange("image", e)}
+          ><input {...getInputProps()}  
+          //  handleChange={(e) => handleFormFieldChange("image", e)}
+            />Choose Image</div>
+        </div>
 
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton
             btnType="submit"
             title="Submit new campaign"
             styles="bg-[#1dc071]"
+            // onClick={handleSubmit}
           />
         </div>
       </form>

@@ -1,11 +1,18 @@
-@media (max-width: 767px) {
-    .xl:flex-row {
-      flex-direction: column;
+@media (max-width: 1070px) {
+    .parent{
+        height: 1000px;
     }
-
-    .xl:flex-1 {
-      position: relative; /* Reset position */
-      right: auto; /* Reset right position */
-      width: 100%; /* Take full width */
+    
+    .earth{
+        position: relative;
+        top:50px;
+        left: 25%;
     }
+    .form{
+        position: relative;
+        top: 400px;
+        left: 25%;
+        
+    }
+    
   }

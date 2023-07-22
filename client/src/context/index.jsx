@@ -37,7 +37,7 @@ export const StateContextProvider = ({ children }) => {
           form.description,
           form.target,
           new Date(form.deadline).getTime(),
-          form.image,
+          form.image[0],
         ],
       });
       console.log("Success");

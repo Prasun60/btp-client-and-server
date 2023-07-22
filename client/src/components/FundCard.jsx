@@ -2,6 +2,7 @@ import React from "react";
 import { tagType, thirdweb } from "../assets";
 import { daysLeft } from "../utils";
 import {rotaract} from "../assets"
+import { MediaRenderer } from "@thirdweb-dev/react";
 
 const FundCard = ({
   name,
@@ -22,11 +23,16 @@ const FundCard = ({
       className="sm:w-[288px] w-full rounded-[15px] bg-[#1c1c24] cursor-pointer"
       onClick={handleClick}
     >
-      <img
+      {/* <img
         src={image}
         alt="fund"
         className="w-full h-[158px] object-cover rounded-[15px]"
-      />
+      /> */}
+
+      <MediaRenderer
+      key={image}
+      src={image}
+      type="image" />
 
       <div className="flex flex-col p-4">
         <div className="flex flex-row items-center mb-[18px]">

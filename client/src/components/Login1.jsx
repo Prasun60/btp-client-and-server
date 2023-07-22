@@ -10,6 +10,8 @@ import { useContext } from "react";
 import { Context } from "../context/Context";
 import { Link, useHistory } from "react-router-dom";
 import  Loader  from "./Loader";
+import "./login.css";
+import {rotaract} from "../assets"
 
 const Login1 = () => {
   // const userRef = useRef();
@@ -97,18 +99,33 @@ const Login1 = () => {
   };
 
   return (
-    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden"  style={{"display":"flex","height":"600px"}}>
+    <div>
+      <nav className="p-4 text-white" style={{"width":"100%","marginTop":"-100px","marginBottom":"400px","position":"absolute", "marginLeft":"-230px"}}>
+        <div className="container mx-auto">
+          <Link to="/" className="text-white font-bold text-xl" style={{"width":"50%","float":"left","height":"500px","width":"100px"}}>
+          <img
+            src={rotaract}
+            alt="tag"
+            className="w-[50px] h-[70px] object-contain"
+            style={{"height":"100px","width":"100px"}}
+          />
+          </Link>
+          {/* You can add other navbar links here */}
+        </div>
+        
+      </nav>
+    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden parent"  style={{"display":"flex","height":"600px"}}>
    
       {isLoading && <Loader name="Loggin in"/>}
       <motion.dev
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl "
-        style={{ "width": "40%" }}
+        className="flex-[0.75] bg-black-100 p-8 rounded-2xl form"
+        style={{ "width": "40%","marginTop":"500px" }}
       >
         {/* <p className={styles.sectionSubText}></p> */}
         <h3 className={styles.sectionHeadText}>Login</h3>
 
-        <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8">
+        <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-8 ">
           <label className="flex flex-col">
             <span className="text-white font-medium mb-4">Your Email</span>
             <input
@@ -147,16 +164,17 @@ const Login1 = () => {
       </motion.dev>
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px] "
+        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px] earth"
         style={{ "width": "50%" ,
         // "float":"right",
         "position":"absolute",
-        "right":"0",        
+        "right":"0",   
+            
       }}
       >
         <EarthCanvas />
       </motion.div>
-    </div>
+    </div></div>
   );
 };
 
