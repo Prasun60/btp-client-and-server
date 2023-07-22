@@ -72,6 +72,7 @@ app.post("/signup", async (req, res) => {
         email: req.body.email,
         // friends: [],
         password: hash,
+        image: req.body.image,
       });
       console.log(newUser);
       await newUser.save();
