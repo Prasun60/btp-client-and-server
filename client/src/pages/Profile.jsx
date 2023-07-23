@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useStateContext } from "../context";
 import { DisplayCampaigns } from "../components";
+import Navbar1 from "../components/Navbar1";
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [campaigns, setCampaigns] = useState([]);
@@ -16,11 +17,14 @@ const Profile = () => {
     if (contract) fetchCampaigns();
   }, [address, contract]);
   return (
+    <>
+    <Navbar1/>
     <DisplayCampaigns
       title="All Campaigns"
       isLoading={isLoading}
       campaigns={campaigns}
     />
+    </>
   );
 };
 

@@ -66,7 +66,7 @@ export const StateContextProvider = ({ children }) => {
       pId: i,
     }));
 
-    console.log(parsedCampaigns);
+    // console.log(parsedCampaigns);
     return parsedCampaigns;
   };
 

@@ -7,13 +7,29 @@ import { useStateContext } from "../context";
 import { MediaRenderer } from "@thirdweb-dev/react";
 import { Context } from "../context/Context";
 
-const Navbar1 = () => {
+const Navbar1 = ({setResult,setsearchfield}) => {
   const history = useHistory();
   const [isActive, setIsActive] = useState("dashboard");
   const [toggleDrawer, setToggleDrawer] = useState(false);
-  const { connect, address } = useStateContext();
+  const { connect, address,getCampaigns } = useStateContext();
   const { user } = useContext(Context);
-  console.log(user.user.name)
+  const [input,setInput] = useState("")
+  // console.log(user.user.name)
+  // const fetchdata=async()=>{
+    
+  // }
+  const handleChange=async(val)=>{
+    setInput(val)
+    console.log("hi")
+    // fetchdata(val);
+    const data = await getCampaigns();
+    const results= await data.filter((campaign)=>{
+      return val && campaign.title && campaign.title.toLowerCase().includes(val.toLowerCase())
+    })
+    // console.log("result is :"+ JSON.stringify(results).split(","))
+    setResult((results))
+    setsearchfield(val)
+  }
 
   return (
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
@@ -21,7 +37,9 @@ const Navbar1 = () => {
         <input
           type="text"
           placeholder="Search for campaigns"
-          className="flex w-full font-epilogue font-normal text-[14px] placeholder:text-[#4b5264] text-white bg-transparent outline-none"
+          className="flex w-full font-epilogue font-normal text-[14px] placeholder:text-[#4b5264] text-white bg-transparent outline-none" 
+          value={input}
+          onChange={(e)=>handleChange(e.target.value)}
         />
         <div className="w-[72px] h-full rounded-[20px] bg-[#4acd8d] flex justify-center items-center cursor-pointer">
           <img
