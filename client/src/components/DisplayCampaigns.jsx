@@ -4,8 +4,12 @@ import { loader } from "../assets";
 import FundCard from "../components/FundCard";
 const DisplayCampaigns = ({ title, isLoading, campaigns,result,searchfield }) => {
   const history = useHistory();
-  // console.log(result)
-  // console.log(searchfield)
+  if(result===undefined){
+    result=[]
+  }
+  if(searchfield===undefined){
+    searchfield=""
+  }
   const filteredCampaigns = result.length > 0 ? result : searchfield.length>0? ["No result found"]:campaigns;
   console.log(filteredCampaigns)
   let count=0
