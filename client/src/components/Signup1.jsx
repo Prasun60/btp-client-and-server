@@ -53,6 +53,18 @@ const Signup1 = () => {
     try {
       console.log("signup");
       setIsLoading(true);
+      if(!name|| !email || !password || !image){
+        swal.fire
+        ({
+          title: 'Please fill all the fields',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#1dc071',
+        })
+        setIsLoading(false);
+        return;
+      }
+      
       const response = await axios.post(
         "http://localhost:5000/signup",
         {
@@ -61,12 +73,27 @@ const Signup1 = () => {
           password,
           image
         }
-      );
+      )
       setIsLoading(false);
-      response.data && window.location.replace("/login");
+      window.location.replace("/login");
+      swal.fire
+      ({
+        title: 'Signed Up Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#1dc071',
+      })
     } catch (err) {
       setError(true);
-      console.log(err);
+      console.log(err.response.data.message);
+      swal.fire
+      ({
+        title: err.response.data.message,
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#1dc071',
+      })
+      setIsLoading(false);
     }
   };
 
