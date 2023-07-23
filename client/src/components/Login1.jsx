@@ -16,8 +16,13 @@ import {rotaract} from "../assets"
 const Login1 = () => {
   // const userRef = useRef();
   // const passwordRef = useRef();
-
-  const [email, setemail] = useState("");
+  const user = localStorage.getItem("user");
+  let userObj = null;
+  userObj = JSON.parse(user);
+  if(userObj!=null){
+    window.location.href="/home"
+  }
+   const [email, setemail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pass, setpass] = useState("");
   const { dispatch, isFetching } = useContext(Context);
