@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import App from "./App.js";
 import "./index.css";
+// import "./main.scss"
 import { StateContextProvider } from "./context";
 import { ContextProvider } from "./context/Context.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
