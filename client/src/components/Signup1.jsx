@@ -23,6 +23,7 @@ const Signup1 = () => {
   const [error, setError] = useState(false);
   const { mutateAsync: upload } = useStorageUpload();
   const [image, setImage] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const onDrop = useCallback(
     async (acceptedFiles) => {
@@ -53,6 +54,18 @@ const Signup1 = () => {
     try {
       console.log("signup");
       setIsLoading(true);
+      if(password !== confirmPassword){
+        swal.fire
+        ({
+          title: 'Passwords do not match',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#1dc071',
+        })
+        setIsLoading(false);
+        return;
+      }
+      
       if(!name|| !email || !password || !image){
         swal.fire
         ({
@@ -64,7 +77,7 @@ const Signup1 = () => {
         setIsLoading(false);
         return;
       }
-      
+
       const response = await axios.post(
         "http://localhost:5000/signup",
         {
@@ -119,12 +132,12 @@ const Signup1 = () => {
     <motion.dev
       variants={slideIn("left", "tween", 0.2, 1)}
       className="flex-[0.75] bg-black-100 p-8 rounded-2xl form"
-      style={{ "width": "40%","marginTop":"500px" }}
+      style={{ "width": "40%","position":"absolute","marginBottom":"-15px" }}
     >
         {/* <p className={styles.sectionSubText}></p> */}
         <h3 className={styles.sectionHeadText}>Sign Up</h3>
 
-        <form onSubmit={handleSubmit} className=" flex flex-col gap-2" >
+        <form onSubmit={handleSubmit} className=" flex flex-col gap-2 text-xs" >
           <label className="flex flex-col">
             <sapn className="text-white font-medium mb-4">Name</sapn>
             <input
@@ -148,10 +161,20 @@ const Signup1 = () => {
           <label className="flex flex-col">
             <sapn className="text-white font-medium mb-4">Password</sapn>
             <input
-              type="string"
+              type="password"
               name="password"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter password"
+              className="bg-tertiary1 py-4 px-6 placeholder:text-secondary1 text-white rounded-lg outlined-none border-none font-medium"
+            />
+          </label>
+          <label className="flex flex-col">
+            <sapn className="text-white font-medium mb-4">confirm Password</sapn>
+            <input
+              type="password"
+              name="confirmpassword"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Renter password"
               className="bg-tertiary1 py-4 px-6 placeholder:text-secondary1 text-white rounded-lg outlined-none border-none font-medium"
             />
           </label>
@@ -184,6 +207,7 @@ const Signup1 = () => {
         // "float":"right",
         "position":"absolute",
         "right":"0",   
+        "marginBottom":"10px"
             
       }}
       >

@@ -4,6 +4,7 @@ import { logo } from "../assets";
 import { navlinks } from "../constants";
 import { Context } from "../context/Context";
 import { rotaract } from "../assets";
+import Swal from "sweetalert2";
 
 const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
   <div
@@ -54,6 +55,12 @@ const Sidebar = () => {
                     //   user && "LOGOUT";
                     // }
                     dispatch({ type: "LOGOUT" });
+                    Swal.fire({
+                      title: "Logged out Successfully",
+                      icon: "success",
+                      confirmButtonText: "OK",
+                      confirmButtonColor: "#1dc071",
+                    });
                     history.push("/");
                   }
                 }

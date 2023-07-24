@@ -105,7 +105,7 @@ const Login1 = () => {
         confirmButtonText: "OK",
         confirmButtonColor: "#1dc071",
       });
-      
+
       history.push("/home");
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
@@ -180,7 +180,7 @@ const Login1 = () => {
             <label className="flex flex-col">
               <span className="text-white font-medium mb-4">Password</span>
               <input
-                type="string"
+                type="password"
                 name="password"
                 onChange={(e) => setpass(e.target.value)}
                 placeholder="Password"
