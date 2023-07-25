@@ -23,7 +23,7 @@ const Login = () => {
     dispatch({ type: "LOGIN_START" });
     try {
       const res = await axios
-        .post("http://localhost:5000/api/auth/login", {
+        .post("https://prasun-btp-server.vercel.app/api/auth/login", {
           // name: userRef.current.value,
           // password: passwordRef.current.value,
           email: email,
