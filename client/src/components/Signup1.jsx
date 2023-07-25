@@ -79,7 +79,7 @@ const Signup1 = () => {
       }
 
       const response = await axios.post(
-        "https://prasun-btp-server.vercel.app/signup",
+        "https://prasun-btp-server.onrender.com/signup",
         {
           name,
           email,
