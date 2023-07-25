@@ -10,10 +10,10 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
+    <nav className="w-full flex py-6 justify-between items-center navbar" style={{"marginTop":"-28px"}}>
       <img src={rotaract} alt="RotoFund" className="w-[124px] h-[150px]" />
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
-        {navLinks.map((nav, index) => (
+        {/* {navLinks.map((nav, index) => (
           <li
             key={nav.id}
             className={`font-poppins font-normal cursor-pointer text-[16px] ${
@@ -22,10 +22,10 @@ const Navbar = () => {
           >
             <Link to={`${nav.route}`} className="link">
               {nav.title}
-            </Link>
+            </Link> */}
             {/* <a href={`#${nav.id}`}>{nav.title}</a> */}
-          </li>
-        ))}
+          {/* </li>
+        ))} */}
         <li className={`${styles.flexCenter} sm:ml-10 ml-0 sm:mt-0 mt-10`}>
           <Link to="/login" className="link">
             <Button />
