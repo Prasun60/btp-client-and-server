@@ -16,6 +16,7 @@ const FundCard = ({
   handleClick,
 }) => {
   const remainingDays = daysLeft(deadline);
+  console.log("title is "+title+" image is "+image)
   if(remainingDays<0){
     return null
   }else{return (
@@ -28,11 +29,9 @@ const FundCard = ({
         alt="fund"
         className="w-full h-[158px] object-cover rounded-[15px]"
       /> */}
+      <MediaRenderer key={image} src={image} type="image" className="w-full h-[158px] object-cover rounded-[15px]" />
 
-      <MediaRenderer
-      key={image}
-      src={image}
-      type="image" />
+      {/* <img src={image} alt="campaign" className="w-full h-[158px] object-cover rounded-xl" /> */}
 
       <div className="flex flex-col p-4">
         <div className="flex flex-row items-center mb-[18px]">

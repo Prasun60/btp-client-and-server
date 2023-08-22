@@ -57,7 +57,9 @@ const CampaignDetails = () => {
       <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
         <div className="flex-1 flex-col">
           {/* <img src={state.state.image} alt="campaign" /> */}
+          {console.log(state.state.image)}
           <MediaRenderer key={state.state.image} src={state.state.image} type="image"  className="w-full h-[410px] object-cover rounded-xl" />
+          {/* <img src={state.state.image} alt="campaign" className="w-full h-[158px] object-cover rounded-xl" /> */}
           <div className="relative w-full h-[5px] bg-[#3a3a43] mt-2">
             <div
               className="absolute h-full bg-[#4acd8d]"
@@ -90,13 +92,10 @@ const CampaignDetails = () => {
             </h4>
 
             <div className="mt-[20px]flex flex-row items-center flex-wrap gap-[14px]">
-              <div className="w-[52px] h-[52px] flex items-center justify-center rounded-full bg-[#2c2f32] cursor-pointer">
-                <img
-                  src={thirdweb}
-                  alt="user"
-                  className="w-[60%] h-[60%] object-contain"
-                />
-              </div>
+              {/* <div className="w-[52px] h-[52px] flex items-center justify-center rounded-full bg-[#2c2f32] cursor-pointer">
+                      <MediaRenderer key={state.state.image} src={state.state.image} type="image" style={{"height":"50px", "width":"50px","borderRadius":"100%"}} />
+
+              </div> */}
               <div>
                 <h4 className="font-epilogue font-semibold text-[14px] text-white break-all">
                   {state.state.owner}

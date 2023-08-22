@@ -9,6 +9,19 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import { useDropzone } from "react-dropzone";
 import swal from 'sweetalert2';
 
+
+import { create as ipfsHttpClient } from "ipfs-http-client";
+
+const projectId = process.env.REACT_APP_PROJECT_ID;
+const projectSecretKey = process.env.REACT_APP_PROJECT_KEY;
+const authorization = "Basic " + btoa(projectId + ":" + projectSecretKey);
+const ipfs = ipfsHttpClient({
+  url: "https://ipfs.infura.io:5001/api/v0",
+  headers: {
+    authorization,
+  },
+});
+
 const CreateCampaign = () => {
   const history = useHistory();
   const { mutateAsync: upload } = useStorageUpload();
@@ -30,30 +43,30 @@ const CreateCampaign = () => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
   
-  const onDrop = useCallback(
-    async (acceptedFiles) => {
-      setIsLoading(true);
-      const uris = await upload({ data: acceptedFiles });
-      setIsLoading(false);
-      swal.fire
-      ({  
-        title: 'Image Uploaded Successfully',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#1dc071',
-      })
-      console.log(uris);
-      setForm((prevForm) => ({ ...prevForm, image: uris }));
-      // setUris(uris);
-    },
-    [upload]
-  );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  // const onDrop = useCallback(
+  //   async (acceptedFiles) => {
+  //     setIsLoading(true);
+  //     const uris = await upload({ data: acceptedFiles });
+  //     setIsLoading(false);
+  //     swal.fire
+  //     ({  
+  //       title: 'Image Uploaded Successfully',
+  //       icon: 'success',
+  //       confirmButtonText: 'OK',
+  //       confirmButtonColor: '#1dc071',
+  //     })
+  //     console.log(uris);
+  //     setForm((prevForm) => ({ ...prevForm, image: uris }));
+  //     // setUris(uris);
+  //   },
+  //   [upload]
+  // );
+  // const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    // console.log( "deadline"+new Date(form.deadline).getTime())
-    console.log(form);
+    // e.preventDefault();
+    // // console.log( "deadline"+new Date(form.deadline).getTime())
+    // console.log(form);
 
     // const uploadData = () => {
     //   // Get any data that you want to upload
@@ -63,14 +76,58 @@ const CreateCampaign = () => {
     //   const uris = await upload({ data: dataToUpload });
     // }
 
+
+
+    e.preventDefault();
+
+    // Check if an image file has been selected
+    if (!form.image) {
+      alert("Please select an image.");
+      return;
+    }
+
+    console.log("form image" +form.image)
+
+    // if(form.image){
+    //   console.log("inside if of image")
+    //   console.log(form.image)
+    //   return;
+    // }
+
     setIsLoading(true);
-    await createCampaign({
-      ...form,
-      target: ethers.utils.parseUnits(form.target, 18),
-    });
-    setIsLoading(false);
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-    history.push("/home");
+
+    try {
+   
+  
+      // Create the campaign with the image IPFS hash
+      await createCampaign({
+        ...form,
+        target: ethers.utils.parseUnits(form.target, 18),
+      });
+  
+      setIsLoading(false);
+      history.push("/home");
+    } catch (error) {
+      console.error("Error uploading image to IPFS:", error);
+      setIsLoading(false);
+      alert("An error occurred while uploading the image. Please try again.");
+    }
+
+
+
+    // setIsLoading(true);
+    // await createCampaign({
+    //   ...form,
+    //   target: ethers.utils.parseUnits(form.target, 18),
+    // });
+    // setIsLoading(false);
+    // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    // history.push("/home");
+
+
+
+
+
 
     // checkIfImage(form.image, async (exists) => {
     //   if (exists) {
@@ -89,6 +146,28 @@ const CreateCampaign = () => {
 
     // console.log(form);
   };
+
+  const onChange=async(e)=>{
+    const file = e.target.files[0]
+    try {
+      setIsLoading(true);
+      const added = await ipfs.add(file)
+      setIsLoading(false);
+      const url = `https://skywalker.infura-ipfs.io/ipfs/${added.path}`
+      console.log(url)
+      setForm({ ...form, image: url });
+      swal.fire
+      ({
+        title: 'Image Uploaded Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#1dc071',
+      })
+
+    } catch (error) {
+      console.log('Error uploading file: ', error)
+    }  
+  }
 
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
@@ -162,7 +241,7 @@ const CreateCampaign = () => {
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
         /> */}
-        <div {...getRootProps()}>
+        {/* <div {...getRootProps()}>
           
           <div
             className={`font-epilogue font-semibold text-[16px] leading-[26px] text-white  text-center min-h-[52px]  rounded-[10px] bg-[#a883ff] w-24`}
@@ -171,7 +250,16 @@ const CreateCampaign = () => {
           ><input {...getInputProps()}  
           //  handleChange={(e) => handleFormFieldChange("image", e)}
             />Choose Image</div>
-        </div>
+        </div> */}
+
+
+           
+
+<input
+        type="file"
+        onChange={onChange}
+        style={{"color":"white"}}
+      />
 
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton

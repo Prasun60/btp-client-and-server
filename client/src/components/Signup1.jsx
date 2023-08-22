@@ -15,37 +15,69 @@ import swal from 'sweetalert2';
 
 
 
+import { create as ipfsHttpClient } from "ipfs-http-client";
+
+const projectId = process.env.REACT_APP_PROJECT_ID;
+const projectSecretKey = process.env.REACT_APP_PROJECT_KEY;
+const authorization = "Basic " + btoa(projectId + ":" + projectSecretKey);
+const ipfs = ipfsHttpClient({
+  url: "https://ipfs.infura.io:5001/api/v0",
+  headers: {
+    authorization,
+  },
+});
+
+
+
 const Signup1 = () => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const { mutateAsync: upload } = useStorageUpload();
+  
   const [image, setImage] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const onDrop = useCallback(
-    async (acceptedFiles) => {
-      setIsLoading(true);
-      const uris = await upload({ data: acceptedFiles });
-      setIsLoading(false);
-      swal.fire
-      ({  
-        title: 'Image Uploaded Successfully',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#1dc071',
-      })
-      console.log(uris);
-      // setForm((prevForm) => ({ ...prevForm, image: uris }));
-      setImage(uris[0])
-      console.log(image)
-    },
-    [upload]
-  );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  const [file, setFile] = useState(null);
+  const { mutateAsync: upload } = useStorageUpload();
+
+  // const uploadtoipfs = async (e) => {
+  //   const uploadurl = await upload({ 
+  //     data: [file],
+  //     options:{
+  //       uploadWithGatewayUrl:true,
+  //       uploadWithoutDirectory: true
+  //     }
+  //    });
+  //   console.log(uploadurl);
+  // }
+
+
+  // const onDrop = useCallback(
+  //   async (acceptedFiles) => {
+  //     setIsLoading(true);
+  //     const uris = await upload({ data: acceptedFiles });
+  //     setIsLoading(false);
+  //     swal.fire
+  //     ({  
+  //       title: 'Image Uploaded Successfully',
+  //       icon: 'success',
+  //       confirmButtonText: 'OK',
+  //       confirmButtonColor: '#1dc071',
+  //     })
+  //     console.log(uris);
+  //     // setForm((prevForm) => ({ ...prevForm, image: uris }));
+  //     setImage(uris[0])
+  //     console.log(image)
+  //   },
+  //   [upload]
+  // );
+  // const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   // const [uris, setUris] = useState([]);
+
+
 
 
   const handleSubmit = async (e) => {
@@ -109,6 +141,30 @@ const Signup1 = () => {
       setIsLoading(false);
     }
   };
+
+  const onChange=async(e)=>{
+    const file = e.target.files[0]
+    setFile(file)
+    try {
+      setIsLoading(true);
+      const added = await ipfs.add(file)
+      setIsLoading(false);
+      const url = `https://skywalker.infura-ipfs.io/ipfs/${added.path}`
+      console.log(url)
+      // setForm({ ...form, image: url });
+      setImage(url)
+      swal.fire
+      ({
+        title: 'Image Uploaded Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#1dc071',
+      })
+
+    } catch (error) {
+      console.log('Error uploading file: ', error)
+    }  
+  }
 
   return (
     <div>
@@ -178,14 +234,37 @@ const Signup1 = () => {
               className="bg-tertiary1 py-4 px-6 placeholder:text-secondary1 text-white rounded-lg outlined-none border-none font-medium"
             />
           </label>
-          <div {...getRootProps()}
+          {/* <div {...getRootProps()}
             type="submit"
             className="bg-tertiary1 py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary1 rounded-xl mt-3"
           >
             <input {...getInputProps()}  
          />
            Choose Profile Picture
-          </div>
+          </div> */}
+
+          {/* <div style={{color:"white"}}>
+            <input  type="file" onChange={(e)=>{
+              if(e.target.files){
+                setFile(e.target.files[0])
+                // console.log(e.target.files[0])
+              }
+            }}  />
+            <button onClick={uploadtoipfs}>upload</button>
+          </div> */}
+
+          
+<input
+        type="file"
+        onChange={onChange}
+        style={{"color":"white"}}
+      />
+
+
+
+
+
+
           <button
             type="submit"
             className="bg-tertiary1 py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary1 rounded-xl"

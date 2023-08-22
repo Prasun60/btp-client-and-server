@@ -13,6 +13,7 @@ const Navbar1 = ({setResult,setsearchfield}) => {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const { connect, address,getCampaigns } = useStateContext();
   const { user } = useContext(Context);
+  console.log(user.user)
   const [input,setInput] = useState("")
   // console.log(user.user.name)
   // const fetchdata=async()=>{
@@ -62,8 +63,8 @@ const Navbar1 = ({setResult,setsearchfield}) => {
         <Link to="/profile">
           
         <MediaRenderer key={user.user.image} src={user.user.image} type="image" style={{"height":"50px", "width":"50px","borderRadius":"100%"}} />
-          
-        </Link>
+        {/* <img src={user.user.image} alt="campaign" className="w-full h-[158px] object-cover rounded-xl" />        */}
+         </Link>
       </div>
 
       {/* small screen navigation */}
