@@ -38,7 +38,7 @@ const Login1 = () => {
   //     const config = { headers: { type: "application/json" } };
   //     const { res } = await axios
   //       .post(
-  //         "https://prasun-btp-server.onrender.com/login",
+  //         "http://localhost:5000/login",
   //         {
   //           email: email,
   //           password: pass,
@@ -87,7 +87,7 @@ const Login1 = () => {
       }
 
       const response = await axios.post(
-        "https://prasun-btp-server.onrender.com/login",
+        "http://localhost:5000/login",
         {
           email: email,
           password: pass,
